@@ -1,0 +1,300 @@
+2025-09-01T07:46:15.743Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T07:46:15.750Z fatal: Failed to initialize bot: this.eventBus.on is not a function
+2025-09-01T07:46:21.906Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T07:46:21.912Z fatal: Failed to initialize bot: this.eventBus.on is not a function
+2025-09-01T07:57:16.620Z error: Unhandled promise rejection: this.listeners.has is not a function
+2025-09-01T07:59:54.527Z error: Unhandled promise rejection: this.listeners.has is not a function
+2025-09-01T07:59:55.228Z error: Error processing message: this.listeners.has is not a function
+2025-09-01T08:00:09.004Z error: Unhandled promise rejection: this.listeners.has is not a function
+2025-09-01T08:00:09.827Z error: Error processing message: this.listeners.has is not a function
+2025-09-01T09:06:17.945Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.945Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.946Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.946Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.947Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.947Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:58.442Z error: Error parsing LLM response as JSON: Expected ',' or '}' after property value in JSON at position 1472 (line 63 column 1)
+2025-09-01T09:07:13.591Z error: Dynamic action error: Cannot read properties of undefined (reading 'parent')
+2025-09-01T09:07:39.650Z error: Dynamic action error: Supplied channel is not a GuildChannelResolvable.
+2025-09-01T09:09:20.616Z error: Dynamic action error: Invalid Form Body
+type[NUMBER_TYPE_COERCE]: Value "GUILD_TEXT" is not int32.
+2025-09-01T09:10:35.471Z error: Dynamic action error: Invalid Form Body
+type[NUMBER_TYPE_COERCE]: Value "GUILD_TEXT" is not int32.
+2025-09-01T09:10:36.428Z error: Dynamic action error: Invalid Form Body
+type[NUMBER_TYPE_COERCE]: Value "GUILD_TEXT" is not int32.
+2025-09-01T09:15:12.667Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.667Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.668Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.668Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.669Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.669Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:21.485Z error: Dynamic action error: Supplied channel is not a GuildChannelResolvable.
+2025-09-01T09:18:53.379Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.380Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.380Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.381Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.381Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.382Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:03.999Z error: Error processing message: llm.generateResponse is not a function
+2025-09-01T09:19:15.321Z error: Error processing message: llm.generateResponse is not a function
+2025-09-01T09:19:27.473Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.474Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.474Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.475Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.476Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.476Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.285Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.286Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.286Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.286Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.287Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.287Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.206Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.206Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.207Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.207Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.207Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.208Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.334Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.334Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.335Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.335Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.336Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.336Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.790Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.791Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.791Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.792Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.792Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.793Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.925Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.929Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.930Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.932Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.933Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.934Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:31:13.577Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:33:03.392Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:33:38.059Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:33:57.149Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:37:04.661Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:37:54.100Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:40:29.050Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:55:27.614Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:56:28.958Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor

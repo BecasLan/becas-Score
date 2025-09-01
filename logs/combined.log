@@ -1,0 +1,705 @@
+2025-09-01T07:46:15.741Z info: Found 6 extension files
+2025-09-01T07:46:15.742Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T07:46:15.743Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T07:46:15.744Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T07:46:15.745Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T07:46:15.745Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T07:46:15.745Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T07:46:15.745Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T07:46:15.746Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T07:46:15.746Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T07:46:15.747Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T07:46:15.747Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T07:46:15.748Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T07:46:15.749Z info: Found 0 plugin files
+2025-09-01T07:46:21.903Z info: Found 6 extension files
+2025-09-01T07:46:21.905Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T07:46:21.906Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T07:46:21.906Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T07:46:21.907Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T07:46:21.907Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T07:46:21.907Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T07:46:21.908Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T07:46:21.908Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T07:46:21.908Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T07:46:21.909Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T07:46:21.909Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T07:46:21.910Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T07:46:21.911Z info: Found 0 plugin files
+2025-09-01T07:57:15.379Z info: Found 0 plugin files
+2025-09-01T07:57:15.381Z info: Attempting to log in to Discord...
+2025-09-01T07:57:16.618Z info: Logged in as Becas Bot#6560!
+2025-09-01T07:57:16.620Z error: Unhandled promise rejection: this.listeners.has is not a function
+2025-09-01T07:59:54.527Z error: Unhandled promise rejection: this.listeners.has is not a function
+2025-09-01T07:59:55.228Z error: Error processing message: this.listeners.has is not a function
+2025-09-01T08:00:09.004Z error: Unhandled promise rejection: this.listeners.has is not a function
+2025-09-01T08:00:09.827Z error: Error processing message: this.listeners.has is not a function
+2025-09-01T08:29:41.096Z info: Shutting down...
+2025-09-01T08:54:25.409Z info: Created directory: data
+2025-09-01T08:54:25.411Z info: Starting BecasBot...
+2025-09-01T08:54:25.444Z info: EventBus initialized
+2025-09-01T08:54:25.459Z info: Found 0 plugin files
+2025-09-01T08:54:25.459Z info: Connecting to Discord...
+2025-09-01T08:54:26.898Z info: Bot logged in as Becas Bot#6560
+2025-09-01T08:54:26.912Z info: Logged in as Becas Bot#6560!
+2025-09-01T08:58:12.698Z info: Shutting down gracefully...
+2025-09-01T08:58:13.523Z info: Starting BecasBot...
+2025-09-01T08:58:13.556Z info: EventBus initialized
+2025-09-01T08:58:13.571Z info: Found 0 plugin files
+2025-09-01T08:58:13.571Z info: Connecting to Discord...
+2025-09-01T08:58:15.740Z info: Bot logged in as Becas Bot#6560
+2025-09-01T08:58:15.744Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:01:19.235Z info: Shutting down gracefully...
+2025-09-01T09:03:19.257Z info: Starting BecasBot...
+2025-09-01T09:03:19.290Z info: EventBus initialized
+2025-09-01T09:03:19.303Z info: Initializing core components...
+2025-09-01T09:03:19.303Z info: Bot setup complete
+2025-09-01T09:03:19.304Z info: Connecting to Discord...
+2025-09-01T09:03:20.652Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:03:20.658Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:03:26.575Z info: Generating plan for input: <@340555859883196428> count his nick name character and reply to me with answer
+2025-09-01T09:03:34.319Z info: Trying dynamic handler for action: message.create
+2025-09-01T09:03:34.760Z info: Trying dynamic handler for action: member.nickname.length
+2025-09-01T09:03:35.282Z info: Admin user executing action: message.create
+2025-09-01T09:03:35.628Z info: Admin user executing action: member.nickname.length
+2025-09-01T09:03:47.424Z info: Generating plan for input: remove slowmode on this channel
+2025-09-01T09:03:49.417Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:03:49.417Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:04:16.485Z info: Generating plan for input: write summary of <@340555859883196428> last 20 message
+2025-09-01T09:04:19.330Z info: Trying dynamic handler for action: channel.messages.fetch
+2025-09-01T09:04:19.330Z info: Executing dynamic action: channel.messages.fetch with args:
+2025-09-01T09:04:20.123Z info: Trying dynamic handler for action: guild.members.fetch
+2025-09-01T09:04:20.123Z info: Executing dynamic action: guild.members.fetch with args:
+2025-09-01T09:04:20.642Z info: Trying dynamic handler for action: channel.messages.bulkDelete
+2025-09-01T09:04:36.273Z info: Generating plan for input: write summary of <@340555859883196428> last 20 message then reply to me with answer <@376415454324981760>
+2025-09-01T09:04:41.595Z info: Trying dynamic handler for action: channel.messages.fetch
+2025-09-01T09:04:41.598Z info: Executing dynamic action: channel.messages.fetch with args:
+2025-09-01T09:04:42.627Z info: Trying dynamic handler for action: message.reply
+2025-09-01T09:04:42.628Z info: Executing dynamic action: message.reply with args:
+2025-09-01T09:04:43.346Z info: Trying dynamic handler for action: channel.messages.fetch
+2025-09-01T09:04:43.347Z info: Executing dynamic action: channel.messages.fetch with args:
+2025-09-01T09:04:43.940Z info: Trying dynamic handler for action: message.create
+2025-09-01T09:04:44.294Z info: Trying dynamic handler for action: channel.messages.fetch
+2025-09-01T09:04:44.296Z info: Executing dynamic action: channel.messages.fetch with args:
+2025-09-01T09:05:06.786Z info: Shutting down gracefully...
+2025-09-01T09:06:17.894Z info: Starting BecasBot...
+2025-09-01T09:06:17.928Z info: EventBus initialized
+2025-09-01T09:06:17.940Z info: Initializing core components...
+2025-09-01T09:06:17.941Z info: Loading extensions from: ./extensions
+2025-09-01T09:06:17.943Z info: Found 6 extension files
+2025-09-01T09:06:17.945Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.945Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.946Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.946Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.947Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.947Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:06:17.947Z info: All extensions loaded successfully
+2025-09-01T09:06:17.947Z info: Extensions loaded successfully
+2025-09-01T09:06:17.947Z info: Bot setup complete
+2025-09-01T09:06:17.947Z info: Connecting to Discord...
+2025-09-01T09:06:19.371Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:06:19.375Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:06:36.400Z info: Generating plan for input: put slowmode this channel for 2 minute
+2025-09-01T09:06:38.408Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:06:38.410Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:06:52.555Z info: Generating plan for input: i said in minute not second
+2025-09-01T09:06:58.442Z error: Error parsing LLM response as JSON: Expected ',' or '}' after property value in JSON at position 1472 (line 63 column 1)
+2025-09-01T09:06:58.443Z info: Trying dynamic handler for action: message.create
+2025-09-01T09:06:59.522Z info: Admin user executing action: message.create
+2025-09-01T09:07:12.018Z info: Generating plan for input: put slowmode this channel for (2) minute
+2025-09-01T09:07:13.589Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:07:13.591Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:07:13.591Z error: Dynamic action error: Cannot read properties of undefined (reading 'parent')
+2025-09-01T09:07:13.960Z info: Admin user executing action: channel.edit
+2025-09-01T09:07:37.051Z info: Generating plan for input: put slowmode this channel for 2 minute
+2025-09-01T09:07:39.650Z info: Trying dynamic handler for action: guild.channels.edit
+2025-09-01T09:07:39.650Z info: Executing dynamic action: guild.channels.edit with args:
+2025-09-01T09:07:39.650Z error: Dynamic action error: Supplied channel is not a GuildChannelResolvable.
+2025-09-01T09:07:40.021Z info: Admin user executing action: guild.channels.edit
+2025-09-01T09:07:46.331Z info: Generating plan for input: put slowmode this channel for 2 minute
+2025-09-01T09:07:48.898Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:07:48.899Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:07:59.654Z info: Generating plan for input: put slowmode this channel for 3 minute
+2025-09-01T09:08:01.362Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:08:01.362Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:09:13.803Z info: Generating plan for input: timeout <@340555859883196428> for 1 minute but after minute execute it not now
+2025-09-01T09:09:19.387Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:09:20.363Z info: Trying dynamic handler for action: guild.channels.create
+2025-09-01T09:09:20.364Z info: Executing dynamic action: guild.channels.create with args:
+2025-09-01T09:09:20.616Z error: Dynamic action error: Invalid Form Body
+type[NUMBER_TYPE_COERCE]: Value "GUILD_TEXT" is not int32.
+2025-09-01T09:09:22.409Z info: Trying dynamic handler for action: channel.messages.send
+2025-09-01T09:09:22.703Z info: Trying dynamic handler for action: guild.scheduler.scheduleTask
+2025-09-01T09:10:28.412Z info: Generating plan for input: timeout <@340555859883196428> for 1 minute but after minute execute it not now
+2025-09-01T09:10:34.175Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:10:35.208Z info: Trying dynamic handler for action: guild.channels.create
+2025-09-01T09:10:35.209Z info: Executing dynamic action: guild.channels.create with args:
+2025-09-01T09:10:35.471Z error: Dynamic action error: Invalid Form Body
+type[NUMBER_TYPE_COERCE]: Value "GUILD_TEXT" is not int32.
+2025-09-01T09:10:35.787Z info: Trying dynamic handler for action: channel.messages.send
+2025-09-01T09:10:36.139Z info: Trying dynamic handler for action: guild.channels.create
+2025-09-01T09:10:36.139Z info: Executing dynamic action: guild.channels.create with args:
+2025-09-01T09:10:36.428Z error: Dynamic action error: Invalid Form Body
+type[NUMBER_TYPE_COERCE]: Value "GUILD_TEXT" is not int32.
+2025-09-01T09:10:36.751Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:13:37.364Z info: Generating plan for input: set slowmode 5 minute
+2025-09-01T09:13:39.151Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:13:39.152Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:15:11.813Z info: Shutting down gracefully...
+2025-09-01T09:15:12.614Z info: Starting BecasBot...
+2025-09-01T09:15:12.649Z info: EventBus initialized
+2025-09-01T09:15:12.663Z info: Initializing core components...
+2025-09-01T09:15:12.663Z info: Loading extensions from: ./extensions
+2025-09-01T09:15:12.666Z info: Found 6 extension files
+2025-09-01T09:15:12.667Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.667Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.668Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.668Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.669Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.669Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:15:12.670Z info: All extensions loaded successfully
+2025-09-01T09:15:12.670Z info: Extensions loaded successfully
+2025-09-01T09:15:12.670Z info: Bot setup complete
+2025-09-01T09:15:12.670Z info: Connecting to Discord...
+2025-09-01T09:15:13.973Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:15:13.973Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:15:19.456Z info: Processing command: set slowmode 5 minute
+2025-09-01T09:15:21.482Z info: Trying dynamic handler for action: guild.channels.edit
+2025-09-01T09:15:21.482Z info: Executing dynamic action: guild.channels.edit with args:
+2025-09-01T09:15:21.485Z error: Dynamic action error: Supplied channel is not a GuildChannelResolvable.
+2025-09-01T09:15:21.893Z info: Admin user executing action: guild.channels.edit
+2025-09-01T09:15:33.480Z info: Processing command: e slowmode yi 5 dakika ya çek
+2025-09-01T09:15:36.107Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:15:36.108Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:17:06.586Z info: Processing command: 5 dakika yap slowmode yi
+2025-09-01T09:17:08.629Z info: Trying dynamic handler for action: channel.edit
+2025-09-01T09:17:08.630Z info: Executing dynamic action: channel.edit with args:
+2025-09-01T09:18:44.615Z info: Shutting down gracefully...
+2025-09-01T09:18:53.331Z info: Starting BecasBot...
+2025-09-01T09:18:53.364Z info: EventBus initialized
+2025-09-01T09:18:53.376Z info: Initializing core components...
+2025-09-01T09:18:53.376Z info: Loading extensions from: ./extensions
+2025-09-01T09:18:53.378Z info: Found 6 extension files
+2025-09-01T09:18:53.379Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.380Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.380Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.381Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.381Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.382Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:18:53.382Z info: All extensions loaded successfully
+2025-09-01T09:18:53.382Z info: Extensions loaded successfully
+2025-09-01T09:18:53.382Z info: Bot setup complete
+2025-09-01T09:18:53.382Z info: Connecting to Discord...
+2025-09-01T09:18:54.982Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:18:55.305Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:19:03.999Z error: Error processing message: llm.generateResponse is not a function
+2025-09-01T09:19:15.321Z error: Error processing message: llm.generateResponse is not a function
+2025-09-01T09:19:26.030Z info: Shutting down gracefully...
+2025-09-01T09:19:27.425Z info: Starting BecasBot...
+2025-09-01T09:19:27.457Z info: EventBus initialized
+2025-09-01T09:19:27.469Z info: Initializing core components...
+2025-09-01T09:19:27.470Z info: Loading extensions from: ./extensions
+2025-09-01T09:19:27.472Z info: Found 6 extension files
+2025-09-01T09:19:27.473Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.474Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.474Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.475Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.476Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.476Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:19:27.476Z info: All extensions loaded successfully
+2025-09-01T09:19:27.477Z info: Extensions loaded successfully
+2025-09-01T09:19:27.477Z info: Bot setup complete
+2025-09-01T09:19:27.477Z info: Connecting to Discord...
+2025-09-01T09:19:28.690Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:19:28.714Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:19:35.003Z info: Processing command: timeout <@340555859883196428> for (3+3)?=
+2025-09-01T09:19:36.528Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:19:51.840Z info: Processing command: timeout <@340555859883196428> for 6 minuute
+2025-09-01T09:19:53.420Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:20:14.931Z info: Processing command: change name of <@799311717502287923> to "amcikarayan2 " then timeout him for 2 minute
+2025-09-01T09:20:18.038Z info: Trying dynamic handler for action: guild.members.resolve
+2025-09-01T09:20:18.038Z info: Executing dynamic action: guild.members.resolve with args:
+2025-09-01T09:20:18.341Z info: Trying dynamic handler for action: member.nickname.set
+2025-09-01T09:20:18.837Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:20:38.366Z info: Processing command: change nick name of <@799311717502287923> to "amcikarayan2 " then timeout him for 2 minute
+2025-09-01T09:20:40.540Z info: Trying dynamic handler for action: guild.members.setNickname
+2025-09-01T09:20:40.836Z info: Trying dynamic handler for action: member.timeout
+2025-09-01T09:23:57.513Z info: Shutting down gracefully...
+2025-09-01T09:23:58.350Z info: Starting BecasBot...
+2025-09-01T09:23:58.393Z info: EventBus initialized
+2025-09-01T09:23:58.412Z info: Found 0 plugin files
+2025-09-01T09:23:58.413Z info: Connecting to Discord...
+2025-09-01T09:24:00.047Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:24:00.486Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:24:26.355Z info: Shutting down gracefully...
+2025-09-01T09:24:27.127Z info: Starting BecasBot...
+2025-09-01T09:24:27.159Z info: EventBus initialized
+2025-09-01T09:24:27.173Z info: Found 0 plugin files
+2025-09-01T09:24:27.173Z info: Connecting to Discord...
+2025-09-01T09:24:28.502Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:24:28.509Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:25:05.073Z info: Shutting down gracefully...
+2025-09-01T09:25:42.237Z info: Starting BecasBot...
+2025-09-01T09:25:42.270Z info: EventBus initialized
+2025-09-01T09:25:42.284Z info: Found 6 extension files
+2025-09-01T09:25:42.285Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.286Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.286Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.286Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.287Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.287Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:25:42.287Z info: All extensions loaded successfully
+2025-09-01T09:25:42.289Z info: Found 0 plugin files
+2025-09-01T09:25:42.289Z info: Connecting to Discord...
+2025-09-01T09:25:43.571Z info: Logged in as Becas Bot#6560
+2025-09-01T09:25:43.572Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:26:41.610Z info: Shutting down gracefully...
+2025-09-01T09:26:48.244Z info: EventBus initialized
+2025-09-01T09:26:51.201Z info: EventBus initialized
+2025-09-01T09:26:51.205Z info: Found 6 extension files
+2025-09-01T09:26:51.206Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.206Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.207Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.207Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.207Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.208Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:26:51.208Z info: All extensions loaded successfully
+2025-09-01T09:26:51.209Z info: Found 0 plugin files
+2025-09-01T09:26:51.210Z info: Attempting to log in to Discord...
+2025-09-01T09:26:52.520Z info: Logged in as Becas Bot#6560
+2025-09-01T09:27:37.486Z info: Shutting down...
+2025-09-01T09:27:38.329Z info: EventBus initialized
+2025-09-01T09:27:38.333Z info: Found 6 extension files
+2025-09-01T09:27:38.334Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.334Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.335Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.335Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.336Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.336Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:27:38.337Z info: All extensions loaded successfully
+2025-09-01T09:27:38.338Z info: Found 0 plugin files
+2025-09-01T09:27:38.338Z info: Attempting to log in to Discord...
+2025-09-01T09:27:39.537Z info: Logged in as Becas Bot#6560
+2025-09-01T09:28:04.115Z info: Shutting down...
+2025-09-01T09:28:04.785Z info: EventBus initialized
+2025-09-01T09:28:04.789Z info: Found 6 extension files
+2025-09-01T09:28:04.790Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.791Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.791Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.792Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.792Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.793Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:28:04.793Z info: All extensions loaded successfully
+2025-09-01T09:28:04.794Z info: Found 0 plugin files
+2025-09-01T09:28:04.794Z info: Attempting to log in to Discord...
+2025-09-01T09:28:05.942Z info: Logged in as Becas Bot#6560
+2025-09-01T09:29:21.758Z info: Shutting down...
+2025-09-01T09:29:22.919Z info: EventBus initialized
+2025-09-01T09:29:22.924Z info: Found 6 extension files
+2025-09-01T09:29:22.925Z error: Error loading extension advancedChannelCommands.js: Cannot find module 'extensions\advancedChannelCommands.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.929Z error: Error loading extension emojiTracker.js: Cannot find module 'extensions\emojiTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.930Z error: Error loading extension interactionTracker.js: Cannot find module 'extensions\interactionTracker.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.932Z error: Error loading extension messageMonitor.js: Cannot find module 'extensions\messageMonitor.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.933Z error: Error loading extension scheduledTasks.js: Cannot find module 'extensions\scheduledTasks.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.934Z error: Error loading extension watcherExtension.js: Cannot find module 'extensions\watcherExtension.js'
+Require stack:
+- C:\Users\ConiLLM\Desktop\becasModOn\extensions\extensionLoader.js
+- C:\Users\ConiLLM\Desktop\becasModOn\core\bot.js
+- C:\Users\ConiLLM\Desktop\becasModOn\index.js
+2025-09-01T09:29:22.934Z info: All extensions loaded successfully
+2025-09-01T09:29:22.936Z info: Found 0 plugin files
+2025-09-01T09:29:22.939Z info: Attempting to log in to Discord...
+2025-09-01T09:29:24.266Z info: Logged in as Becas Bot#6560
+2025-09-01T09:31:12.789Z info: Shutting down...
+2025-09-01T09:31:13.572Z info: EventBus initialized
+2025-09-01T09:31:13.576Z info: Found 6 extension files
+2025-09-01T09:31:13.576Z info: Found 6 extensions
+2025-09-01T09:31:13.576Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:31:13.577Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:31:13.578Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:31:13.579Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:31:13.579Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:31:13.580Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:31:13.580Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:31:13.581Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:31:13.581Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:31:13.582Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:31:13.583Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:31:13.584Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:31:13.585Z info: Found 0 plugin files
+2025-09-01T09:31:13.586Z info: Attempting to log in to Discord...
+2025-09-01T09:31:14.944Z info: Logged in as Becas Bot#6560
+2025-09-01T09:33:02.578Z info: Shutting down...
+2025-09-01T09:33:03.387Z info: EventBus initialized
+2025-09-01T09:33:03.391Z info: Found 6 extension files
+2025-09-01T09:33:03.391Z info: Found 6 extensions
+2025-09-01T09:33:03.391Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:33:03.392Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:33:03.392Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:33:03.393Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:33:03.393Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:33:03.394Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:33:03.394Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:33:03.395Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:33:03.395Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:33:03.396Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:33:03.396Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:33:03.397Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:33:03.398Z info: Found 0 plugin files
+2025-09-01T09:33:03.398Z info: Attempting to log in to Discord...
+2025-09-01T09:33:04.765Z info: Logged in as Becas Bot#6560
+2025-09-01T09:33:37.161Z info: Shutting down...
+2025-09-01T09:33:38.046Z info: EventBus initialized
+2025-09-01T09:33:38.055Z info: Found 6 extension files
+2025-09-01T09:33:38.056Z info: Found 6 extensions
+2025-09-01T09:33:38.057Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:33:38.059Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:33:38.060Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:33:38.061Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:33:38.062Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:33:38.063Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:33:38.064Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:33:38.065Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:33:38.065Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:33:38.067Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:33:38.067Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:33:38.068Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:33:38.069Z info: Found 0 plugin files
+2025-09-01T09:33:39.307Z info: Logged in as Becas Bot#6560
+2025-09-01T09:33:56.271Z info: Shutting down...
+2025-09-01T09:33:57.143Z info: EventBus initialized
+2025-09-01T09:33:57.147Z info: Found 6 extension files
+2025-09-01T09:33:57.147Z info: Found 6 extensions
+2025-09-01T09:33:57.147Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:33:57.149Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:33:57.149Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:33:57.150Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:33:57.150Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:33:57.151Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:33:57.151Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:33:57.152Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:33:57.152Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:33:57.153Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:33:57.153Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:33:57.154Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:33:58.353Z info: Logged in as Becas Bot#6560
+2025-09-01T09:35:29.819Z info: Shutting down...
+2025-09-01T09:37:04.644Z info: EventBus initialized
+2025-09-01T09:37:04.660Z info: Found 6 extension files
+2025-09-01T09:37:04.660Z info: Found 6 extensions
+2025-09-01T09:37:04.660Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:37:04.661Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:37:04.662Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:37:04.663Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:37:04.663Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:37:04.664Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:37:04.664Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:37:04.665Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:37:04.665Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:37:04.665Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:37:04.666Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:37:04.666Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:37:06.101Z info: Bot started successfully
+2025-09-01T09:37:06.109Z info: Logged in as Becas Bot#6560
+2025-09-01T09:37:54.048Z info: Starting BecasBot...
+2025-09-01T09:37:54.085Z info: EventBus initialized
+2025-09-01T09:37:54.099Z info: Found 6 extension files
+2025-09-01T09:37:54.099Z info: Found 6 extensions
+2025-09-01T09:37:54.099Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:37:54.100Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:37:54.101Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:37:54.101Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:37:54.102Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:37:54.102Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:37:54.103Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:37:54.103Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:37:54.103Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:37:54.104Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:37:54.104Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:37:54.105Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:37:54.105Z info: Connecting to Discord...
+2025-09-01T09:37:55.305Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:37:55.320Z info: Logged in as Becas Bot#6560
+2025-09-01T09:39:21.505Z info: Shutting down gracefully...
+2025-09-01T09:40:29.000Z info: Starting BecasBot...
+2025-09-01T09:40:29.033Z info: EventBus initialized
+2025-09-01T09:40:29.045Z info: Initializing core components...
+2025-09-01T09:40:29.046Z warn: No config provided to loadExtensions, using defaults
+2025-09-01T09:40:29.046Z info: Loading extensions from: C:\Users\ConiLLM\Desktop\becasModOn\extensions
+2025-09-01T09:40:29.048Z info: Found 6 extension files
+2025-09-01T09:40:29.049Z info: Found 6 extensions
+2025-09-01T09:40:29.049Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:40:29.050Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:40:29.050Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:40:29.051Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:40:29.051Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:40:29.052Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:40:29.052Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:40:29.053Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:40:29.053Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:40:29.054Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:40:29.054Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:40:29.054Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:40:29.055Z info: Extensions loaded successfully
+2025-09-01T09:40:29.055Z info: Bot setup complete
+2025-09-01T09:40:29.055Z info: Connecting to Discord...
+2025-09-01T09:40:32.177Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:40:32.185Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:55:26.566Z info: Shutting down gracefully...
+2025-09-01T09:55:27.558Z info: Starting BecasBot...
+2025-09-01T09:55:27.597Z info: EventBus initialized
+2025-09-01T09:55:27.610Z info: Initializing core components...
+2025-09-01T09:55:27.610Z warn: No config provided to loadExtensions, using defaults
+2025-09-01T09:55:27.610Z info: Loading extensions from: C:\Users\ConiLLM\Desktop\becasModOn\extensions
+2025-09-01T09:55:27.613Z info: Found 6 extension files
+2025-09-01T09:55:27.613Z info: Found 6 extensions
+2025-09-01T09:55:27.613Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:55:27.614Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:55:27.614Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:55:27.615Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:55:27.615Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:55:27.616Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:55:27.616Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:55:27.617Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:55:27.617Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:55:27.618Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:55:27.618Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:55:27.619Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:55:27.619Z info: Extensions loaded successfully
+2025-09-01T09:55:27.619Z info: Bot setup complete
+2025-09-01T09:55:27.619Z info: Connecting to Discord...
+2025-09-01T09:55:30.538Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:55:30.556Z info: Logged in as Becas Bot#6560!
+2025-09-01T09:56:28.170Z info: Shutting down gracefully...
+2025-09-01T09:56:28.907Z info: Starting BecasBot...
+2025-09-01T09:56:28.941Z info: EventBus initialized
+2025-09-01T09:56:28.957Z info: Found 6 extension files
+2025-09-01T09:56:28.957Z info: Found 6 extensions
+2025-09-01T09:56:28.957Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\advancedChannelCommands.js
+2025-09-01T09:56:28.958Z error: Error loading extension advancedChannelCommands.js: Extension is not a constructor
+2025-09-01T09:56:28.958Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\emojiTracker.js
+2025-09-01T09:56:28.959Z info: Loaded extension: EmojiTracker v1.0
+2025-09-01T09:56:28.959Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\interactionTracker.js
+2025-09-01T09:56:28.960Z info: Loaded extension: InteractionTracker v1.0
+2025-09-01T09:56:28.960Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\messageMonitor.js
+2025-09-01T09:56:28.961Z info: Loaded extension: MessageMonitor v1.0
+2025-09-01T09:56:28.961Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\scheduledTasks.js
+2025-09-01T09:56:28.962Z info: Loaded extension: ScheduledTasks v1.0
+2025-09-01T09:56:28.962Z info: Loading extension from C:\Users\ConiLLM\Desktop\becasModOn\extensions\watcherExtension.js
+2025-09-01T09:56:28.963Z info: Loaded extension: watcherExtension v1.0
+2025-09-01T09:56:28.963Z info: Connecting to Discord...
+2025-09-01T09:56:30.204Z info: Logged in as Becas Bot#6560
+2025-09-01T09:56:30.205Z info: Bot logged in as Becas Bot#6560
+2025-09-01T09:58:20.745Z info: Shutting down gracefully...

@@ -1,0 +1,1873 @@
+/**
+ * Plan Generator - Creates execution plans based on user commands
+ * @module ai/planGenerator
+ * @description Advanced plan generation system that analyzes user requests and 
+ * creates executable workflow plans for Discord bot operations
+ * @version 4.0.0
+ */
+
+// Action aliases for automatic correction of LLM outputs
+const ACTION_ALIASES = {
+  // Member action aliases
+  'member.edit': 'member.setNickname',
+  'member.update': 'member.setNickname',
+  'member.nickname': 'member.setNickname',
+  'member.nick': 'member.setNickname',
+  'member.modifyNickname': 'member.setNickname',
+  'member.changenick': 'member.setNickname',
+  'member.changename': 'member.setNickname',
+  'member.mute': 'member.timeout',
+  'member.silence': 'member.timeout',
+  'member.sustur': 'member.timeout',
+  
+  // Message action aliases
+  'message.send': 'message.create',
+  'message.write': 'message.create',
+  'message.post': 'message.create',
+  'message.say': 'message.create',
+  'message.yaz': 'message.create',
+  'message.gönder': 'message.create',
+  
+  // Channel action aliases
+  'channel.clean': 'channel.purge',
+  'channel.clear': 'channel.purge',
+  'message.purge': 'channel.purge',
+  'message.clear': 'channel.purge',
+  'message.sil': 'channel.purge',
+  'channel.temizle': 'channel.purge',
+  
+  // Role action aliases
+  'role.give': 'role.add',
+  'role.assign': 'role.add',
+  'role.revoke': 'role.remove',
+  'role.take': 'role.remove',
+  'role.ver': 'role.add',
+  'role.al': 'role.remove'
+};
+
+// Capabilities of the bot - used to inform the LLM what actions are available
+const CAPABILITIES = `
+BecasBot can perform these actions:
+- message.create: Send a message to a channel (params: content, channelId?)
+- message.delete: Delete a message (params: messageId)
+- message.edit: Edit a message (params: messageId, content)
+- message.react: React to a message with emoji (params: messageId, emoji)
+- message.pin: Pin an important message (params: messageId)
+- message.unpin: Unpin a message (params: messageId)
+- member.timeout: Timeout a user (params: userId, duration in seconds, reason?)
+- member.kick: Kick a user from the server (params: userId, reason?)
+- member.ban: Ban a user from the server (params: userId, reason?, deleteMessageDays?)
+- member.unban: Unban a previously banned user (params: userId, reason?)
+- member.setNickname: Change a user's nickname (params: userId, nickname)
+- role.add: Add a role to a user (params: userId, roleId or roleName)
+- role.remove: Remove a role from a user (params: userId, roleId or roleName)
+- role.create: Create a new role (params: name, color?, permissions?)
+- role.delete: Delete a role (params: roleId or roleName)
+- channel.create: Create a new channel (params: name, type?, topic?, parentId?)
+- channel.delete: Delete an existing channel (params: channelId)
+- channel.purge: Delete multiple messages (params: limit: 1-100, userId?)
+- channel.lock: Lock a channel to prevent messages (params: channelId?)
+- channel.unlock: Unlock a previously locked channel (params: channelId?)
+
+For complex or specialized operations, the bot can also create dynamic extensions:
+- Custom message repeaters (e.g., repeat a message N times)
+- Mathematical operations (e.g., calculate complex expressions)
+- Word filtering and text processing
+- Custom monitoring and trigger systems
+- Advanced sequence and timing operations
+
+These extensions are created on-demand when standard actions are insufficient.
+`;
+
+class PlanGenerator {
+  /**
+   * Create a new PlanGenerator
+   * @param {Object} llm - LLM service instance
+   * @param {Object} workflowEngine - Workflow engine instance
+   * @param {Object} logger - Logger instance
+   * @param {Object} config - Configuration object
+   */
+  constructor(llm, workflowEngine, logger, config) {
+    this.llm = llm;
+    this.workflowEngine = workflowEngine;
+    this.logger = logger;
+    this.config = config || {};
+    this._lastUserInput = '';
+    this._defaultTimeout = config?.defaultTimeout || 300; // Default timeout duration in seconds
+    this._maxPurgeLimit = 100; // Maximum number of messages that can be purged
+    this.systemPrompt = this._buildSystemPrompt();
+    
+    // Valid actions registry - used to validate LLM outputs
+    this.validActions = [
+      // Message actions
+      'message.create',
+      'message.delete',
+      'message.edit',
+      'message.react',
+      'message.pin',
+      'message.unpin',
+      
+      // Member actions
+      'member.timeout',
+      'member.kick',
+      'member.ban',
+      'member.unban',
+      'member.setNickname',
+      
+      // Role actions
+      'role.add',
+      'role.remove',
+      'role.create',
+      'role.delete',
+      
+      // Channel actions
+      'channel.create',
+      'channel.delete',
+      'channel.purge',
+      'channel.lock',
+      'channel.unlock',
+    ];
+    
+    // Store user contexts for better reference
+    this.userContexts = new Map();
+    
+    // Extension detection patterns
+    this.extensionPatterns = [
+      { name: 'repeat', regex: /(?:repeat|say|write|tekrarla|yaz)\s+["']?([^"']+)["']?\s+(\d+)(?:\s+(?:times|kez|kere|defa))?/i },
+      { name: 'math', regex: /(?:calculate|compute|hesapla|işlem)\s+([\d\+\-\*\/\(\)\^\%\.\s]+)/i },
+      { name: 'filter', regex: /filter\s+(?:messages?|mesaj(?:lar)?)\s+(?:with|containing|içeren)\s+["']?([^"']+)["']?/i },
+      { name: 'countdown', regex: /(?:countdown|geri say|sayaç)\s+from\s+(\d+)/i },
+      { name: 'letterCount', regex: /(?:count letters|harf say|letter count)\s+(?:in|of)\s+["']?([^"']+)["']?/i },
+      { name: 'randomPick', regex: /(?:randomly|random|rastgele)\s+(?:pick|choose|select|seç)\s+(\d+)\s+(?:from|among|arasından|from among)/i },
+      { name: 'translate', regex: /(?:translate|çevir)\s+["']?([^"']+)["']?\s+(?:to|from)\s+(\w+)(?:\s+to\s+(\w+))?/i }
+    ];
+    
+    // Count of dynamic extensions created
+    this.dynamicExtensionCount = 0;
+  }
+  
+  /**
+   * Generate a plan from user input
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @returns {Promise<Object>} - Execution plan
+   */
+ async generatePlan(message, userInput) {
+  try {
+    // Test/bypass kontrolü
+   
+      
+      // Save user input for later reference
+      this._lastUserInput = userInput;
+      
+      // Check for dynamic extension pattern matches first
+      const extensionMatch = this._checkForExtensionMatch(userInput);
+      if (extensionMatch) {
+        this.logger.info(`Matched dynamic extension: ${extensionMatch.name}`);
+        return await this._handleExtension(extensionMatch.name, message, userInput, extensionMatch.match);
+      }
+      
+      // Build context for LLM
+      const context = this._buildContext(message, userInput);
+      this.userContexts.set(message.author.id, context);
+      
+      // Prepare prompt for LLM
+      const prompt = `
+User Command: ${userInput}
+
+User Context:
+${JSON.stringify(context, null, 2)}
+
+Generate a valid JSON response that contains the steps needed to fulfill this command.
+The response must contain a "steps" array with each step having a "tool", "params", and "id" field.
+
+${CAPABILITIES}
+
+RESPONSE (valid JSON only):
+`;
+
+      try {
+        // Get response from LLM service
+        const response = await this.llm.generateResponse(this.systemPrompt, prompt);
+        
+        // Try to parse the response as JSON
+        const plan = await this._extractPlanFromResponse(response);
+        
+        // Process and normalize the plan
+        return await this.normalizePlan(plan, userInput, message);
+      } catch (parseError) {
+        this.logger.error('Error parsing LLM response as JSON:', parseError);
+        
+        // Create a dynamic extension as a fallback
+        this.logger.info('Attempting to create dynamic extension as fallback');
+        return await this._createDynamicExtension(message, userInput);
+      }
+    } catch (error) {
+      this.logger.error('Plan generation error:', error);
+      
+      // Try fallback handling
+      try {
+        return await this._handleFallback(message, userInput, error);
+      } catch (fallbackError) {
+        // Create a basic error plan as last resort
+        return this.createErrorPlan(`Error processing command: ${error.message}`);
+      }
+    }
+  }
+
+  /**
+   * Handle a specific extension
+   * @param {string} extensionName - Name of the extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Promise<Object>} - Extension plan
+   * @private
+   */
+  async _handleExtension(extensionName, message, userInput, match) {
+    switch (extensionName) {
+      case 'repeat':
+        return this._handleRepeatExtension(message, userInput, match);
+      case 'math':
+        return this._handleMathExtension(message, userInput, match);
+      case 'filter':
+        return this._handleFilterExtension(message, userInput, match);
+      case 'countdown':
+        return this._handleCountdownExtension(message, userInput, match);
+      case 'letterCount':
+        return this._handleLetterCountExtension(message, userInput, match);
+      case 'randomPick':
+        return this._handleRandomPickExtension(message, userInput, match);
+      case 'translate':
+        return this._handleTranslateExtension(message, userInput, match);
+      default:
+        return this._createDynamicExtension(message, userInput);
+    }
+  }
+  
+  /**
+   * Check if the user input matches any extension patterns
+   * @param {string} userInput - User input to check
+   * @returns {Object|null} - Extension match or null
+   * @private
+   */
+  _checkForExtensionMatch(userInput) {
+    for (const pattern of this.extensionPatterns) {
+      const match = userInput.match(pattern.regex);
+      if (match) {
+        return { name: pattern.name, match };
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * Extract a plan from the LLM's response with enhanced error recovery
+   * @param {string} response - LLM response
+   * @returns {Promise<Object>} - Extracted plan
+   * @private
+   *//**
+ * Extract a plan from the LLM's response with enhanced error recovery
+ * @param {string} response - LLM response
+ * @returns {Promise<Object>} - Extracted plan
+ * @private
+ */
+async _extractPlanFromResponse(response) {
+  try {
+    // Debug log
+    this.logger.debug('Raw LLM response:', response.substring(0, 300) + (response.length > 300 ? '...' : ''));
+    
+    // Try multiple extraction patterns
+    const patterns = [
+      /```(?:json)?\s*([\s\S]*?)\s*```/, // Code block pattern
+      /{[\s\S]*?}/, // Simple JSON object pattern
+      /\{(?:[^{}]|(?:\{[^{}]*\}))*\}/ // Nested JSON objects pattern
+    ];
+    
+    let jsonContent = null;
+    
+    // Try each pattern to extract JSON
+    for (const pattern of patterns) {
+      const match = response.match(pattern);
+      if (match) {
+        jsonContent = match[0].replace(/```json|```/g, '').trim();
+        break;
+      }
+    }
+    
+    if (!jsonContent) {
+      throw new Error('No valid JSON found in LLM response');
+    }
+    
+    // Fix JSON issues before parsing
+    const fixedJson = this._fixJsonIssues(jsonContent);
+    
+    // Debug log
+    if (fixedJson !== jsonContent) {
+      this.logger.debug('Fixed JSON:', fixedJson.substring(0, 300) + (fixedJson.length > 300 ? '...' : ''));
+    }
+     if (this._lastUserInput && 
+          (this._lastUserInput.toLowerCase().includes('timeout') || 
+           this._lastUserInput.toLowerCase().includes('sustur'))) {
+        
+        this.logger.info('🔄 Timeout komutu algılandı, özel işleyici kullanılıyor');
+        
+        // RegEx ile kullanıcı ID'sini çıkar
+        const userIdMatch = this._lastUserInput.match(/<@!?(\d+)>/);
+        const userId = userIdMatch ? userIdMatch[1] : null;
+        
+        if (!userId) {
+          return this.createErrorPlan('Timeout için kullanıcı belirtilmedi.');
+        }
+        
+        // Süre çıkar (varsayılan 5 dakika)
+        let duration = 300;
+        
+        // Dakika kontrolü
+        const minMatch = this._lastUserInput.match(/(\d+)\s*(?:m|min|minute|dakika)/i);
+        if (minMatch) {
+          duration = parseInt(minMatch[1]) * 60;
+        }
+        
+        // Saat kontrolü
+        const hourMatch = this._lastUserInput.match(/(\d+)\s*(?:h|hour|saat)/i);
+        if (hourMatch) {
+          duration = parseInt(hourMatch[1]) * 3600;
+        }
+        
+        return {
+          steps: [
+            {
+              tool: "discord.request",
+              params: {
+                action: "member.timeout",
+                userId: userId,
+                duration: duration,
+                reason: "Timeout via fallback handler"
+              },
+              id: "emergency1"
+            },
+            {
+              tool: "discord.request",
+              params: {
+                action: "message.create",
+                content: `✅ <@${userId}> kullanıcısı ${Math.floor(duration/60)} dakika susturuldu.`
+              },
+              id: "emergency2"
+            }
+          ],
+          meta: { 
+            strategy: "sequential",
+            recoveryMode: true
+          }
+        };
+      }
+      
+      // Diğer komutlar için...
+      throw new Error('Could not extract valid JSON plan');
+    }
+  
+     
+   catch (error) {
+    this.logger.error('Error extracting plan from response:', error);
+    throw error;
+  }
+}
+
+/**
+ * Son çare - parçalı JSON'dan acil durum planı oluştur
+ * @param {string} jsonFragment - Bozuk JSON metni
+ * @param {Error} originalError - Orijinal hata
+ * @returns {Object} - Oluşturulan acil durum planı
+ * @private
+ */
+_extractEmergencyPlan(jsonFragment, originalError) {
+  // Adım parçalarını çıkar
+  const stepsMatch = jsonFragment.match(/"steps"\s*:\s*\[([\s\S]*?)\]/);
+  if (stepsMatch) {
+    try {
+      // Adım nesnelerini regex ile bul
+      const stepObjects = [];
+      const objectRegex = /{[^{}]*(?:{[^{}]*}[^{}]*)*}/g;
+      let match;
+      
+      while ((match = objectRegex.exec(stepsMatch[1])) !== null) {
+        try {
+          // Her bir adım nesnesini düzelt ve parse et
+          const fixedStep = this._fixJsonIssues(match[0]);
+          const stepObj = JSON.parse(fixedStep);
+          
+          // Temel özellikler eksikse ekle
+          if (!stepObj.tool) stepObj.tool = "discord.request";
+          if (!stepObj.id) stepObj.id = `s${stepObjects.length + 1}`;
+          if (!stepObj.params) stepObj.params = {};
+          if (!stepObj.params.action) stepObj.params.action = "message.create";
+          if (stepObj.params.action === "message.create" && !stepObj.params.content) {
+            stepObj.params.content = "İçerik sağlanamadı";
+          }
+          
+          stepObjects.push(stepObj);
+        } catch (e) {
+          // Hatalı adımı atla
+          continue;
+        }
+      }
+      
+      // En az bir adım bulunduysa acil plan döndür
+      if (stepObjects.length > 0) {
+        return {
+          steps: stepObjects,
+          meta: { 
+            strategy: "sequential", 
+            recovered: true,
+            originalError: originalError.message
+          }
+        };
+      }
+    } catch (e) {
+      // İşlem başarısız olursa devam et
+    }
+  }
+  
+  // Hiçbir şey bulunamazsa, basit bir mesaj döndür
+  return {
+    steps: [{
+      tool: "discord.request",
+      params: {
+        action: "message.create",
+        content: `Komutunuzu anladım fakat JSON yanıtını işleyemedim: ${originalError.message}`
+      },
+      id: "emergency1"
+    }],
+    meta: { 
+      strategy: "sequential",
+      emergency: true
+    }
+  };
+}
+  
+ 
+  /**
+ * Fix common JSON issues in LLM responses - ENHANCED
+ * @param {string} jsonStr - JSON string with potential issues
+ * @returns {string} - Fixed JSON string
+ * @private
+ */
+_fixJsonIssues(jsonStr) {
+  // Mevcut implementasyon
+  let fixed = jsonStr.replace(/'/g, '"');
+  fixed = fixed.replace(/,(\s*[}\]])/g, '$1');
+  
+  fixed = fixed.replace(/(\w+):/g, (match, p1) => {
+    if (p1.startsWith('"') || p1.endsWith('"')) return match;
+    return `"${p1}":`;
+  });
+  
+  fixed = fixed.replace(/}(\s*){/g, '},\n{');
+  
+  // GELİŞMİŞ DÜZELTMELER - BUNLAR EKSİK!
+  
+  // DİZİ ELEMANLARINI DÜZELTME - HATA YAPTIĞINIZ NOKTA BURASI
+  fixed = fixed.replace(/}(\s*)"/g, '},\n"');
+  fixed = fixed.replace(/}(\s*){/g, '},\n{');
+  
+  // Nesne özelliklerindeki virgülleri düzeltme
+  const lines = fixed.split('\n');
+  for (let i = 0; i < lines.length - 1; i++) {
+    const line = lines[i].trim();
+    const nextLine = lines[i + 1].trim();
+    
+    // Bir satır ":" içeriyorsa ve sonraki satır da ":" içeriyorsa
+    // ve bu satır virgülle bitmiyorsa, virgül ekle
+    if (line.includes(':') && nextLine.includes(':') && 
+        !line.endsWith(',') && !line.endsWith('{') && 
+        !line.endsWith('[') && !nextLine.startsWith('}') && 
+        !nextLine.startsWith(']')) {
+      lines[i] = line + ',';
+    }
+    
+    // Nesne sonu ve nesne başlangıcı arasında virgül
+    if ((line.endsWith('}') || line.endsWith('"')) && 
+        (nextLine.startsWith('{') || nextLine.startsWith('"')) &&
+        !line.endsWith(',')) {
+      lines[i] = line + ',';
+    }
+  }
+  fixed = lines.join('\n');
+  
+  // Parantez dengeleme - mevcut implementasyon
+  const openBraces = (fixed.match(/{/g) || []).length;
+  const closeBraces = (fixed.match(/}/g) || []).length;
+  for (let i = 0; i < openBraces - closeBraces; i++) {
+    fixed += '}';
+  }
+  
+  // Yeni: Parantez dengeleme - köşeli parantezler
+  const openBrackets = (fixed.match(/\[/g) || []).length;
+  const closeBrackets = (fixed.match(/\]/g) || []).length;
+  for (let i = 0; i < openBrackets - closeBrackets; i++) {
+    fixed += ']';
+  }
+  
+  // Kontrol: Adım dizisinde doğru formatlama
+  if (fixed.includes('"steps"') && 
+      !fixed.includes('"steps": []') && 
+      !fixed.includes('"steps": [') &&
+      !fixed.includes('"steps":[]')) {
+    fixed = fixed.replace(/"steps"\s*:/, '"steps": [');
+    
+    // steps dizisinin kapanış parantezini ekle
+    if (!fixed.includes(']}')) {
+      if (fixed.endsWith('}')) {
+        fixed = fixed.slice(0, -1) + ']}';
+      } else {
+        fixed += ']}';
+      }
+    }
+  }
+  
+  return fixed;
+}
+  
+  /**
+   * Normalize and validate a plan
+   * @param {Object} plan - Raw plan from LLM
+   * @param {string} userInput - Original user input
+   * @param {Message} message - Original Discord message
+   * @returns {Promise<Object>} - Normalized plan
+   */
+  async normalizePlan(plan, userInput, message) {
+    if (!plan || !plan.steps || !Array.isArray(plan.steps)) {
+      this.logger.error("Invalid plan structure returned by LLM");
+      return this._createDynamicExtension(message, userInput);
+    }
+    
+    const normalizedSteps = [];
+    let hasErrors = false;
+    const errors = [];
+    
+    // Process each step
+    for (let i = 0; i < plan.steps.length; i++) {
+      const step = plan.steps[i];
+      
+      try {
+        // Ensure we have the required fields
+        if (!step.params || !step.params.action) {
+          errors.push("Missing action in step");
+          continue;
+        }
+        
+        // Check for and correct action aliases
+        const originalAction = step.params.action;
+        if (!this.validActions.includes(originalAction) && ACTION_ALIASES[originalAction.toLowerCase()]) {
+          // Found an alias, use the proper action name
+          const correctedAction = ACTION_ALIASES[originalAction.toLowerCase()];
+          this.logger.info(`Corrected action: ${originalAction} → ${correctedAction}`);
+          step.params.action = correctedAction;
+        }
+        
+        const normalizedStep = {
+          tool: step.tool || "discord.request",
+          id: step.id || `s${i + 1}`,
+          params: { ...step.params }
+        };
+        
+        // Process specific action types
+        switch (normalizedStep.params.action) {
+          case "member.setNickname":
+            this._normalizeNicknameStep(normalizedStep, step, message, userInput);
+            break;
+            
+          case "member.timeout":
+            this._normalizeTimeoutStep(normalizedStep, step, message, userInput);
+            break;
+            
+          case "channel.purge":
+            this._normalizePurgeStep(normalizedStep, step, message, userInput);
+            break;
+            
+          case "message.create":
+            this._normalizeMessageCreateStep(normalizedStep, step, message);
+            break;
+            
+          case "role.add":
+          case "role.remove":
+            this._normalizeRoleStep(normalizedStep, step, message, userInput);
+            break;
+            
+          case "member.kick":
+          case "member.ban":
+            this._normalizeModerationStep(normalizedStep, step, message);
+            break;
+        }
+        
+        // Extract userId from potential mentions in original text
+        if (typeof normalizedStep.params.userId === 'string' && normalizedStep.params.userId.startsWith('<@')) {
+          normalizedStep.params.userId = normalizedStep.params.userId.replace(/[<@!>]/g, '');
+        }
+        
+        normalizedSteps.push(normalizedStep);
+      } catch (error) {
+        hasErrors = true;
+        errors.push(error.message);
+        this.logger.error(`Error normalizing step:`, error);
+      }
+    }
+    
+    // If we have no valid steps but had errors, create a dynamic extension
+    if (normalizedSteps.length === 0 && hasErrors) {
+      return await this._createDynamicExtension(message, userInput);
+    }
+    
+    // Add monitoring metadata if needed
+    let meta = plan.meta || { strategy: "sequential" };
+    
+    // Process special monitoring requirements
+    this._processMonitoringMetadata(meta, userInput, message);
+    
+    return {
+      steps: normalizedSteps,
+      meta,
+      requiresApproval: plan.meta?.requiresApproval || this._requiresApproval(normalizedSteps)
+    };
+  }
+  
+  /**
+   * Normalize nickname change step parameters
+   * @param {Object} normalizedStep - Step being normalized
+   * @param {Object} originalStep - Original step from LLM
+   * @param {Message} message - Discord message
+   * @param {string} userInput - Original user input
+   * @private
+   */
+  _normalizeNicknameStep(normalizedStep, originalStep, message, userInput) {
+    // Get user ID parameter, with fallback to mention or message author
+    const userId = originalStep.params.userId || 
+                  (message.mentions?.users?.first() ? message.mentions?.users?.first().id : null) ||
+                  message.author.id;
+    
+    // Set userId
+    normalizedStep.params.userId = userId;
+    
+    // Get nickname parameter - check all possible fields
+    let nickname = null;
+    
+    // Check all possible parameter names
+    const possibleParamNames = ['nickname', 'nick', 'name', 'content', 'value', 'to', 'newNickname'];
+    
+    for (const paramName of possibleParamNames) {
+      if (originalStep.params[paramName] !== undefined) {
+        nickname = originalStep.params[paramName];
+        break;
+      }
+    }
+    
+    // If still no nickname, try to extract from user input
+    if (nickname === null) {
+      // Pattern: "nickname to something" or "change to something"
+      const nicknameMatch = userInput.match(/(?:nickname|name|nick|lakap)\s+(?:to|as|change|olarak)\s+["']?([^"']+)["']?/i);
+      if (nicknameMatch) {
+        nickname = nicknameMatch[1];
+      } else {
+        // "to something" format
+        const toMatch = userInput.match(/\s+to\s+["']?([^"']+)["']?/i);
+        if (toMatch) {
+          nickname = toMatch[1];
+        }
+      }
+    }
+    
+    // If still no nickname, fallback to extracting from the command
+    if (nickname === null) {
+      // Check for quoted text after a name/nick keyword
+      const quotedNickMatch = userInput.match(/(?:name|nickname|nick|lakap).*?["']([^"']+)["']/i);
+      if (quotedNickMatch) {
+        nickname = quotedNickMatch[1];
+      } else {
+        // Last resort: try to extract words after change/set/nickname
+        const wordMatch = userInput.match(/(?:change|set|nickname|isim)\s+(\w+)/i);
+        if (wordMatch) {
+          nickname = wordMatch[1];
+        }
+      }
+    }
+    
+    // Final fallback - set to empty if resetting nickname
+    if (nickname === null && userInput.match(/(?:reset|remove|clear)\s+nickname/i)) {
+      nickname = "";
+    }
+    
+    // Add the nickname to params
+    normalizedStep.params.nickname = nickname;
+    
+    // If still undefined or null, use a default value
+    if (normalizedStep.params.nickname === null || normalizedStep.params.nickname === undefined) {
+      normalizedStep.params.nickname = "New Nickname"; // Default value
+    }
+    
+    // Add reason if not present
+    if (!normalizedStep.params.reason) {
+      normalizedStep.params.reason = "Nickname changed via bot command";
+    }
+  }
+  
+  /**
+   * Normalize timeout step parameters
+   * @param {Object} normalizedStep - Step being normalized
+   * @param {Object} originalStep - Original step from LLM
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @private
+   */
+  _normalizeTimeoutStep(normalizedStep, originalStep, message, userInput) {
+    // Get userId parameter, with fallback to mention
+    const userId = originalStep.params.userId || 
+                  (originalStep.params.user?.id) ||
+                  (message?.mentions?.users?.first()?.id);
+    
+    if (!userId) {
+      throw new Error("Missing userId in timeout step");
+    }
+    normalizedStep.params.userId = userId;
+    
+    // Ensure duration is a number
+    if (originalStep.params.duration !== undefined) {
+      normalizedStep.params.duration = Number(originalStep.params.duration);
+      
+      // Fix remove timeout cases - if mentioned in userInput
+      if ((userInput.toLowerCase().includes("remove timeout") || 
+          userInput.toLowerCase().includes("kaldır") ||
+          userInput.toLowerCase().includes("untimeout")) && 
+          normalizedStep.params.duration > 0) {
+        normalizedStep.params.duration = 0;
+      }
+    } else {
+      // Try to extract duration from time expressions
+      const timeExpressions = this._extractTimeExpressions(userInput);
+      if (timeExpressions.length > 0) {
+        normalizedStep.params.duration = timeExpressions[0].value;
+      } else {
+        // Default timeout duration if not specified
+        normalizedStep.params.duration = this._defaultTimeout;
+      }
+    }
+    
+    // Add reason if not present
+    if (!normalizedStep.params.reason) {
+      normalizedStep.params.reason = "Timed out by admin command";
+    }
+  }
+  
+  /**
+   * Normalize channel purge step parameters
+   * @param {Object} normalizedStep - Step being normalized
+   * @param {Object} originalStep - Original step from LLM
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @private
+   */
+  _normalizePurgeStep(normalizedStep, originalStep, message, userInput) {
+    // Ensure limit is a number between 1-100
+    let limit = 10; // Default value
+    
+    if (originalStep.params.limit !== undefined) {
+      limit = Number(originalStep.params.limit);
+      
+      // Ensure limit is an integer between 1-100
+      limit = Math.max(1, Math.min(Math.floor(limit), this._maxPurgeLimit));
+    } else {
+      // Try to extract limit from userInput
+      const limitMatch = userInput.match(/(\d+)(?:\s+(?:messages|mesaj))/i);
+      if (limitMatch) {
+        limit = Math.min(parseInt(limitMatch[1], 10), this._maxPurgeLimit);
+      }
+    }
+    
+    normalizedStep.params.limit = limit;
+    
+    // Add user filtering support
+    if (originalStep.params.userId) {
+      normalizedStep.params.userId = originalStep.params.userId;
+    } else {
+      // Try to extract userId from mentions in message
+      if (message?.mentions?.users?.first()) {
+        normalizedStep.params.userId = message.mentions.users.first().id;
+      }
+    }
+  }
+  
+  /**
+   * Normalize message creation step parameters
+   * @param {Object} normalizedStep - Step being normalized
+   * @param {Object} originalStep - Original step from LLM
+   * @param {Message} message - Original Discord message
+   * @private
+   */
+  _normalizeMessageCreateStep(normalizedStep, originalStep, message) {
+    // Ensure content is a string
+    if (!normalizedStep.params.content || typeof normalizedStep.params.content !== 'string') {
+      normalizedStep.params.content = "Message content not provided";
+    }
+    
+    // If no channelId specified, use the current channel
+    if (!normalizedStep.params.channelId && message?.channel) {
+      normalizedStep.params.channelId = message.channel.id;
+    }
+  }
+  
+  /**
+   * Normalize role management step parameters
+   * @param {Object} normalizedStep - Step being normalized
+   * @param {Object} originalStep - Original step from LLM
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @private
+   */
+  _normalizeRoleStep(normalizedStep, originalStep, message, userInput) {
+    // Add roleName support if roleId not provided
+    if (!originalStep.params.roleId && originalStep.params.roleName) {
+      normalizedStep.params.roleName = originalStep.params.roleName;
+    }
+    
+    // Check for roleId or roleName
+    if (!normalizedStep.params.roleId && !normalizedStep.params.roleName) {
+      // Try to extract role name from command
+      const roleNameMatch = userInput.match(/["']([^"']+)["']|role\s+(\w+)/i);
+      if (roleNameMatch) {
+        normalizedStep.params.roleName = roleNameMatch[1] || roleNameMatch[2];
+      } else if (message?.mentions?.roles?.size > 0) {
+        // Use mentioned role
+        normalizedStep.params.roleId = message.mentions.roles.first().id;
+      } else {
+        // Try to extract role name without quotes
+        const roleWordMatch = userInput.match(/(?:role|rol)\s+(\w+)/i);
+        if (roleWordMatch) {
+          normalizedStep.params.roleName = roleWordMatch[1];
+        } else {
+          // Last resort - look for any capitalized word that might be a role name
+          const capitalizedMatch = userInput.match(/\b([A-Z][a-z]+)\b/);
+          if (capitalizedMatch) {
+            normalizedStep.params.roleName = capitalizedMatch[1];
+          } else {
+            normalizedStep.params.roleName = "Unknown Role";
+          }
+        }
+      }
+    }
+    
+    // Check for userId - check for keywords like "me", "myself"
+    if (!normalizedStep.params.userId) {
+      if (userInput.toLowerCase().match(/\b(me|myself|self|bana|kendime)\b/i)) {
+        normalizedStep.params.userId = message.author.id;
+      } else if (message?.mentions?.users?.size > 0) {
+        normalizedStep.params.userId = message.mentions.users.first().id;
+      } else {
+        normalizedStep.params.userId = message.author.id; // Default to author
+      }
+    }
+    
+    // Clean up role ID format
+    if (normalizedStep.params.roleId && typeof normalizedStep.params.roleId === 'string' && normalizedStep.params.roleId.startsWith('<@&')) {
+      normalizedStep.params.roleId = normalizedStep.params.roleId.replace(/[<@&>]/g, '');
+    }
+  }
+  
+  /**
+   * Normalize moderation step parameters
+   * @param {Object} normalizedStep - Step being normalized
+   * @param {Object} originalStep - Original step from LLM
+   * @param {Message} message - Discord message
+   * @private
+   */
+  _normalizeModerationStep(normalizedStep, originalStep, message) {
+    // Ensure userId is present
+    if (!normalizedStep.params.userId && message?.mentions?.users?.first()) {
+      normalizedStep.params.userId = message.mentions.users.first().id;
+    }
+    
+    if (!normalizedStep.params.userId) {
+      throw new Error(`Missing userId in ${originalStep.params.action} step`);
+    }
+    
+    // Add reason if not present
+    if (!normalizedStep.params.reason) {
+      const actionName = originalStep.params.action.split('.')[1];
+      normalizedStep.params.reason = `${actionName.charAt(0).toUpperCase() + actionName.slice(1)} by admin command`;
+    }
+    
+    // For ban action, ensure delete message days is valid
+    if (originalStep.params.action === 'member.ban') {
+      if (originalStep.params.deleteMessageDays !== undefined) {
+        let days = Number(originalStep.params.deleteMessageDays);
+        days = Math.max(0, Math.min(Math.floor(days), 7)); // 0-7 days
+        normalizedStep.params.deleteMessageDays = days;
+      } else {
+        normalizedStep.params.deleteMessageDays = 0; // Default value
+      }
+    }
+  }
+  
+  /**
+   * Process monitoring metadata based on user input
+   * @param {Object} meta - Plan metadata
+   * @param {string} userInput - User input text
+   * @param {Message} message - Original Discord message
+   * @private
+   */
+  _processMonitoringMetadata(meta, userInput, message) {
+    // Extract monitoring info from userInput and add it to meta
+    if (userInput.toLowerCase().match(/(watch|monitor|track|izle|takip)/i)) {
+      meta.requiresMonitoring = true;
+      
+      // Extract mentions
+      const mentionRegex = /<@!?(\d+)>/g;
+      const mentions = [];
+      let match;
+      while ((match = mentionRegex.exec(userInput)) !== null) {
+        mentions.push(match[1]);
+      }
+      
+      if (mentions.length > 0) {
+        meta.monitorUserId = mentions[0];
+        
+        // Try to get username for better UX
+        const mentionedUser = message.mentions?.users?.find(u => u.id === mentions[0]);
+        if (mentionedUser) {
+          meta.monitorUsername = mentionedUser.username;
+        }
+      }
+      
+      // Extract trigger words after "if they say" or similar phrases
+      const triggerRegex = /(?:if|when|eğer).*?(?:say|yazarsa|derse|söylerse)[^\w]*(["']?)(.*?)\1/i;
+      const triggerMatch = userInput.match(triggerRegex);
+      if (triggerMatch) {
+        meta.triggerWord = triggerMatch[2];
+      }
+      
+      // Try to determine monitoring type
+      if (userInput.toLowerCase().match(/(emoji|emote)/i)) {
+        meta.monitorType = "emoji";
+      } else if (userInput.toLowerCase().match(/(message|mesaj)/i)) {
+        meta.monitorType = "message";
+      }
+      
+      // Extract duration if present
+      const durationHours = this._extractDurationHours(userInput);
+      if (durationHours) {
+        meta.durationHours = durationHours;
+      }
+    }
+  }
+  
+  /**
+   * Extract duration in hours from user input
+   * @param {string} userInput - User input text
+   * @returns {number|null} - Duration in hours or null if not found
+   * @private
+   */
+  _extractDurationHours(userInput) {
+    // Extract hours pattern (e.g., "for 6 hours", "6 saat boyunca")
+    const hourMatch = userInput.match(/(\d+)\s*(?:hour|saat|h)/i);
+    if (hourMatch) {
+      return parseInt(hourMatch[1], 10);
+    }
+    
+    // Extract minutes pattern and convert to hours
+    const minuteMatch = userInput.match(/(\d+)\s*(?:minute|dakika|min|dk)/i);
+    if (minuteMatch) {
+      return parseInt(minuteMatch[1], 10) / 60;
+    }
+    
+    // Extract days pattern and convert to hours
+    const dayMatch = userInput.match(/(\d+)\s*(?:day|gün|d)/i);
+    if (dayMatch) {
+      return parseInt(dayMatch[1], 10) * 24;
+    }
+    
+    return null;
+  }
+  
+  /**
+   * Check if a plan requires approval
+   * @param {Array} steps - Plan steps
+   * @returns {boolean} - Whether approval is required
+   * @private
+   */
+  _requiresApproval(steps) {
+    const dangerousActions = [
+      'member.ban',
+      'member.kick',
+      'channel.delete',
+      'role.delete',
+      'channel.purge'
+    ];
+    
+    // Also require approval for plans with many steps
+    if (steps.length > 5) {
+      return true;
+    }
+    
+    return steps.some(step => {
+      // Check for dangerous actions
+      if (dangerousActions.includes(step.params?.action)) {
+        return true;
+      }
+      
+      // Special case for channel.purge with high limits
+      if (step.params?.action === 'channel.purge' && step.params?.limit > 20) {
+        return true;
+      }
+      
+      // Special case for long timeouts
+      if (step.params?.action === 'member.timeout' && step.params?.duration > 86400) {
+        return true;
+      }
+      
+      return false;
+    });
+  }
+  
+  /**
+   * Create a dynamic extension when standard plans fail
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @returns {Promise<Object>} - Dynamic extension plan
+   * @private
+   */
+  async _createDynamicExtension(message, userInput) {
+    this.logger.info('Creating dynamic extension for:', userInput);
+    this.dynamicExtensionCount++;
+    
+    // First, check for repeat patterns
+    const repeatMatch = userInput.match(/(?:repeat|say|write|tekrarla|yaz)\s+["']?([^"']+)["']?\s+(\d+)(?:\s+(?:times|kez|kere|defa))?/i);
+    if (repeatMatch) {
+      return this._handleRepeatExtension(message, userInput, repeatMatch);
+    }
+    
+    // Check for math operation patterns
+    const mathMatch = userInput.match(/(?:calculate|compute|hesapla|işlem)\s+([\d\+\-\*\/\(\)\^\%\.\s]+)/i);
+    if (mathMatch) {
+      return this._handleMathExtension(message, userInput, mathMatch);
+    }
+    
+    // Check for word filtering patterns
+    const filterMatch = userInput.match(/filter\s+(?:messages?|mesaj(?:lar)?)\s+(?:with|containing|içeren)\s+["']?([^"']+)["']?/i);
+    if (filterMatch) {
+      return this._handleFilterExtension(message, userInput, filterMatch);
+    }
+    
+    // Check for countdown patterns
+    const countdownMatch = userInput.match(/(?:countdown|geri say|sayaç)\s+from\s+(\d+)/i);
+    if (countdownMatch) {
+      return this._handleCountdownExtension(message, userInput, countdownMatch);
+    }
+    
+    // Check for letter counting
+    const letterCountMatch = userInput.match(/(?:count letters|harf say|letter count)\s+(?:in|of)\s+["']?([^"']+)["']?/i);
+    if (letterCountMatch) {
+      return this._handleLetterCountExtension(message, userInput, letterCountMatch);
+    }
+    
+    // Check for name-based timeout pattern (e.g., "timeout user for as many minutes as letters in their name")
+    const nameTimeoutMatch = userInput.match(/(?:timeout|mute|sustur)\s+(?:for|kadar|as)\s+(?:many|much|uzun)\s+(?:as|kadar|olarak)\s+(?:letters|harf|character|karakter)\s+(?:in|içinde)/i);
+    if (nameTimeoutMatch && message.mentions?.users?.first()) {
+      return this._handleLetterCountTimeoutExtension(message, userInput);
+    }
+    
+    // Generic fallback - try to create a message response
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: "I understand your request but need more specific instructions. Could you please rephrase your command?"
+          },
+          id: "ext1"
+        }
+      ],
+      meta: { 
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "generic"
+      }
+    };
+  }
+  
+  /**
+   * Handle message repeat extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Repeat extension plan
+   * @private
+   */
+  _handleRepeatExtension(message, userInput, match) {
+    const content = match[1];
+    let count = parseInt(match[2], 10);
+    
+    // Cap the count to a reasonable number
+    if (count > 20) {
+      count = 20;
+    }
+    
+    const steps = [];
+    const shouldNumber = userInput.toLowerCase().match(/number|numara|sayı|indexed|numaralı/i);
+    
+    for (let i = 0; i < count; i++) {
+      const messageContent = shouldNumber ? `${i+1}. ${content}` : content;
+      steps.push({
+        tool: "discord.request",
+        params: {
+          action: "message.create",
+          content: messageContent
+        },
+        id: `repeat${i+1}`
+      });
+    }
+    
+    return {
+      steps,
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "repeat",
+        originalContent: content,
+        count: count,
+        numbered: shouldNumber
+      }
+    };
+  }
+  
+  /**
+   * Handle math operation extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Math extension plan
+   * @private
+   */
+  _handleMathExtension(message, userInput, match) {
+    const expression = match[1];
+    
+    try {
+      // Safely evaluate the math expression
+      const result = this._safeEval(expression);
+      
+      return {
+        steps: [
+          {
+            tool: "discord.request",
+            params: {
+              action: "message.create",
+              content: `🔢 Result: ${result}`
+            },
+            id: "math1"
+          }
+        ],
+        meta: {
+          strategy: "sequential",
+          isDynamicExtension: true,
+          extensionType: "math",
+          expression: expression,
+          result: result
+        }
+      };
+    } catch (error) {
+      return this.createErrorPlan(`Could not calculate the expression: ${error.message}`);
+    }
+  }
+  
+  /**
+   * Safe evaluation of math expressions
+   * @param {string} expression - Math expression to evaluate
+   * @returns {number} - Evaluated result
+   * @private
+   */
+  _safeEval(expression) {
+    // Replace all potentially unsafe code
+    const sanitized = expression.replace(/[^0-9+\-*/.()%\s]/g, '');
+    
+    // Use Function instead of eval for safer evaluation
+    const fn = new Function('return ' + sanitized);
+    return fn();
+  }
+  
+  /**
+   * Handle message filtering extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Filter extension plan
+   * @private
+   */
+  _handleFilterExtension(message, userInput, match) {
+    const filterTerm = match[1];
+    
+    // Extract limit - default to 10
+    let limit = 10;
+    const limitMatch = userInput.match(/(?:last|son)\s+(\d+)/i);
+    if (limitMatch) {
+      limit = Math.min(parseInt(limitMatch[1], 10), 100);
+    }
+    
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `📝 I'll filter for messages containing "${filterTerm}". This would normally search through the last ${limit} messages.`
+          },
+          id: "filter1"
+        }
+      ],
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "filter",
+        filterTerm: filterTerm,
+        limit: limit
+      }
+    };
+  }
+  
+  /**
+   * Handle countdown extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Countdown extension plan
+   * @private
+   */
+  _handleCountdownExtension(message, userInput, match) {
+    const startNumber = parseInt(match[1], 10);
+    
+    // Limit to reasonable numbers
+    const count = Math.min(startNumber, 20);
+    
+    const steps = [];
+    
+    for (let i = count; i >= 0; i--) {
+      steps.push({
+        tool: "discord.request",
+        params: {
+          action: "message.create",
+          content: i === 0 ? "🎉 Go!" : `${i}...`
+        },
+        id: `countdown${count-i+1}`
+      });
+    }
+    
+    return {
+      steps,
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "countdown",
+        startNumber: count
+      }
+    };
+  }
+  
+  /**
+   * Handle letter counting extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Letter count extension plan
+   * @private
+   */
+  _handleLetterCountExtension(message, userInput, match) {
+    const text = match[1];
+    const letterCount = text.length;
+    
+    // Check if we should count without spaces
+    const withoutSpaces = userInput.toLowerCase().includes('without spaces') || 
+                         userInput.toLowerCase().includes('no spaces') ||
+                         userInput.toLowerCase().includes('boşluksuz');
+    
+    const actualCount = withoutSpaces ? text.replace(/\s+/g, '').length : letterCount;
+    
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `📊 The text "${text}" contains ${actualCount} characters${withoutSpaces ? ' (excluding spaces)' : ''}.`
+          },
+          id: "letterCount1"
+        }
+      ],
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "letterCount",
+        text: text,
+        count: actualCount,
+        withoutSpaces: withoutSpaces
+      }
+    };
+  }
+  
+  /**
+   * Handle letter count based timeout extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @returns {Object} - Letter count timeout extension plan
+   * @private
+   */
+  _handleLetterCountTimeoutExtension(message, userInput) {
+    const mentionedUser = message.mentions?.users?.first();
+    
+    if (!mentionedUser) {
+      return this.createErrorPlan('Please mention a user to timeout.');
+    }
+    
+    let nameToUse = mentionedUser.username;
+    
+    // Check if we should use nickname
+    if (message.guild && userInput.toLowerCase().includes('nickname')) {
+      const member = message.guild.members.cache.get(mentionedUser.id);
+      if (member && member.nickname) {
+        nameToUse = member.nickname;
+      }
+    }
+    
+    // Check if we should count without spaces
+    const withoutSpaces = userInput.toLowerCase().includes('without spaces') || 
+                         userInput.toLowerCase().includes('no spaces') ||
+                         userInput.toLowerCase().includes('boşluksuz');
+    
+    const characterCount = withoutSpaces ? 
+      nameToUse.replace(/\s+/g, '').length : 
+      nameToUse.length;
+    
+    // Determine the unit (minutes, hours, seconds)
+    let unit = "minutes";
+    let multiplier = 60;
+    
+    if (userInput.toLowerCase().includes('second')) {
+      unit = "seconds";
+      multiplier = 1;
+    } else if (userInput.toLowerCase().includes('hour')) {
+      unit = "hours";
+      multiplier = 3600;
+    } else if (userInput.toLowerCase().includes('day')) {
+      unit = "days";
+      multiplier = 86400;
+    }
+    
+    const duration = characterCount * multiplier;
+    
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "member.timeout",
+            userId: mentionedUser.id,
+            duration: duration,
+            reason: `Timeout based on character count in ${withoutSpaces ? 'name (without spaces)' : 'name'}`
+          },
+          id: "letterTimeout1"
+        },
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `Timed out ${mentionedUser.toString()} for ${characterCount} ${unit} based on the ${characterCount} characters in their ${userInput.toLowerCase().includes('nickname') ? 'nickname' : 'username'}.`
+          },
+          id: "letterTimeout2"
+        }
+      ],
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "letterCountTimeout",
+        name: nameToUse,
+        count: characterCount,
+        withoutSpaces: withoutSpaces,
+        unit: unit,
+        duration: duration
+      }
+    };
+  }
+  
+  /**
+   * Handle random pick extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Random pick extension plan
+   * @private
+   */
+  _handleRandomPickExtension(message, userInput, match) {
+    const count = parseInt(match[1], 10);
+    
+    // Try to extract items to pick from
+    const itemsMatch = userInput.match(/(?:from|among|arasından)(?:\s+|:\s*)([\w\s,]+)/i);
+    
+    if (!itemsMatch) {
+      return this.createErrorPlan('Please specify items to pick from (e.g., "randomly pick 2 from apple, banana, orange")');
+    }
+    
+    // Split the items and trim
+    const items = itemsMatch[1].split(',').map(item => item.trim()).filter(Boolean);
+    
+    if (items.length === 0) {
+      return this.createErrorPlan('No items found to pick from');
+    }
+    
+    // Select random items
+    const actualCount = Math.min(count, items.length);
+    
+    // Fisher-Yates shuffle algorithm
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    // Take the first 'actualCount' items
+    const picked = shuffled.slice(0, actualCount);
+    
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `🎲 Randomly picked: ${picked.join(', ')}`
+          },
+          id: "randomPick1"
+        }
+      ],
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "randomPick",
+        items: items,
+        count: actualCount,
+        picked: picked
+      }
+    };
+  }
+  
+  /**
+   * Handle simple translation extension
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Array} match - Regex match result
+   * @returns {Object} - Translation extension plan
+   * @private
+   */
+  _handleTranslateExtension(message, userInput, match) {
+    const text = match[1];
+    const sourceLang = match[2];
+    const targetLang = match[3] || 'en';
+    
+    // This is a mock translation - in a real system you'd call an API
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `🌐 Translation from ${sourceLang} to ${targetLang}:\n"${text}"\n\n(Note: This is a placeholder for translation functionality)`
+          },
+          id: "translate1"
+        }
+      ],
+      meta: {
+        strategy: "sequential",
+        isDynamicExtension: true,
+        extensionType: "translate",
+        text: text,
+        sourceLang: sourceLang,
+        targetLang: targetLang
+      }
+    };
+  }
+  
+  /**
+   * Handle fallback for failed plan generation
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @param {Error} error - Original error
+   * @returns {Promise<Object>} - Fallback plan
+   * @private
+   */
+  async _handleFallback(message, userInput, error) {
+    this.logger.info('Using fallback plan generation for:', userInput);
+    
+    // Check for common command patterns
+    const lowerInput = userInput.toLowerCase();
+    
+    // Nickname command
+    if (lowerInput.includes('nickname') || lowerInput.includes('nick') || lowerInput.includes('isim') || lowerInput.includes('lakap')) {
+      const mentionedUser = message.mentions?.users?.first();
+      if (!mentionedUser) {
+        return this.createErrorPlan('Please mention a user to change their nickname.');
+      }
+      
+      // Extract the nickname from the command
+      let nickname = "";
+      const quoteMatch = userInput.match(/["']([^"']+)["']/);
+      if (quoteMatch) {
+        nickname = quoteMatch[1];
+      } else {
+        // Try to extract words after "to" or "as"
+        const toMatch = userInput.match(/(?:to|as|olarak)\s+(\S+)/i);
+        if (toMatch) {
+          nickname = toMatch[1];
+        } else {
+          // Last attempt - any word after "nickname"
+          const wordMatch = userInput.match(/(?:nickname|nick|isim|lakap)\s+(\S+)/i);
+          if (wordMatch) {
+            nickname = wordMatch[1];
+          }
+        }
+      }
+      
+      if (!nickname) {
+        return this.createErrorPlan('Please specify the new nickname.');
+      }
+      
+      return {
+        steps: [
+          {
+            tool: "discord.request",
+            params: {
+              action: "member.setNickname",
+              userId: mentionedUser.id,
+              nickname: nickname
+            },
+            id: "fallback1"
+          }
+        ],
+        meta: { strategy: "sequential" }
+      };
+    }
+    
+    // Timeout command
+    if (lowerInput.includes('timeout') || lowerInput.includes('mute') || lowerInput.includes('sustur')) {
+      const mentionedUser = message.mentions?.users?.first();
+      if (!mentionedUser) {
+        return this.createErrorPlan('Please mention a user to timeout.');
+      }
+      
+      // Extract duration
+      let duration = 300; // Default: 5 minutes
+      const timeExpressions = this._extractTimeExpressions(userInput);
+      if (timeExpressions.length > 0) {
+        duration = timeExpressions[0].value;
+      }
+      
+      return {
+        steps: [
+          {
+            tool: "discord.request",
+            params: {
+              action: "member.timeout",
+              userId: mentionedUser.id,
+              duration: duration,
+              reason: "Timeout applied via fallback handler"
+            },
+            id: "fallback1"
+          }
+        ],
+        meta: { strategy: "sequential" }
+      };
+    }
+    
+    // Generic message as last resort
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `I couldn't process your command: ${error.message}. Please try rephrasing.`
+          },
+          id: "fallback1"
+        }
+      ],
+      meta: { strategy: "sequential" }
+    };
+  }
+  
+  /**
+   * Build context object from message
+   * @param {Message} message - Discord message
+   * @param {string} userInput - User input text
+   * @returns {Object} - Context object
+   * @private
+   */
+  _buildContext(message, userInput) {
+    // Ensure userInput is a string
+    if (typeof userInput !== 'string') {
+      userInput = String(userInput || '');
+    }
+    
+    // Basic context information
+    const context = {
+      command: userInput,
+      timestamp: Date.now(),
+      languageHint: userInput.match(/[çğıöşü]/i) ? 'tr' : 'en' // Simple language detection
+    };
+    
+    // Guild information - with null checks
+    if (message && message.guild) {
+      context.guild = {
+        id: message.guild.id,
+        name: message.guild.name,
+        memberCount: message.guild.memberCount
+      };
+    }
+    
+    // Channel information - with null checks
+    if (message && message.channel) {
+      context.channel = {
+        id: message.channel.id,
+        name: message.channel.name,
+        type: message.channel.type
+      };
+      
+      // Add NSFW flag if available
+      if (message.channel.nsfw !== undefined) {
+        context.channel.nsfw = message.channel.nsfw;
+      }
+    }
+    
+    // Author information - with null checks
+    if (message && message.author) {
+      context.author = {
+        id: message.author.id,
+        username: message.author.username,
+        bot: message.author.bot,
+        permissions: []
+      };
+      
+      // Add author permissions if in guild
+      if (message.member) {
+        try {
+          context.author.permissions = Array.from(message.member.permissions.toArray());
+          context.author.isAdmin = message.member.permissions.has('ADMINISTRATOR');
+          
+          // Add roles if available
+          if (message.member.roles && message.member.roles.cache) {
+            context.author.roles = message.member.roles.cache
+              .filter(role => role.name !== '@everyone')
+              .map(role => ({ id: role.id, name: role.name }));
+          }
+          
+          // Add nickname if available
+          if (message.member.nickname !== null) {
+            context.author.nickname = message.member.nickname;
+          }
+        } catch (error) {
+          this.logger.warn('Error extracting member permissions:', error);
+        }
+      }
+    }
+    
+    // Mentioned users - with thorough null checks
+    context.mentionedUsers = [];
+    if (message && message.mentions && message.mentions.users) {
+      try {
+        if (message.mentions.users.size) {
+          context.mentionedUsers = Array.from(message.mentions.users.values()).map(user => ({
+            id: user.id,
+            username: user.username,
+            bot: user.bot
+          }));
+        }
+      } catch (error) {
+        this.logger.warn('Error extracting mentioned users:', error);
+      }
+    }
+    
+    // Mentioned roles - with thorough null checks
+    context.mentionedRoles = [];
+    if (message && message.mentions && message.mentions.roles) {
+      try {
+        if (message.mentions.roles.size) {
+          context.mentionedRoles = Array.from(message.mentions.roles.values()).map(role => ({
+            id: role.id,
+            name: role.name,
+            color: role.hexColor
+          }));
+        }
+      } catch (error) {
+        this.logger.warn('Error extracting mentioned roles:', error);
+      }
+    }
+    
+    // Mentioned channels - with thorough null checks
+    context.mentionedChannels = [];
+    if (message && message.mentions && message.mentions.channels) {
+      try {
+        if (message.mentions.channels.size) {
+          context.mentionedChannels = Array.from(message.mentions.channels.values()).map(channel => ({
+            id: channel.id,
+            name: channel.name,
+            type: channel.type
+          }));
+        }
+      } catch (error) {
+        this.logger.warn('Error extracting mentioned channels:', error);
+      }
+    }
+    
+    // Extract time expressions for tasks like timeouts
+    const timeExpressions = this._extractTimeExpressions(userInput);
+    if (timeExpressions.length > 0) {
+      context.timeExpressions = timeExpressions;
+    }
+    
+    return context;
+  }
+  
+  /**
+   * Extract time expressions from text
+   * @param {string} text - Text to search for time expressions
+   * @returns {Array<Object>} - Extracted time expressions with value in seconds
+   * @private
+   */
+  _extractTimeExpressions(text) {
+    const expressions = [];
+    
+    // Match patterns like "10 minutes", "2 hours", "1 day"
+    const patterns = [
+      { regex: /(\d+)\s*(min|minute|minutes|dk|dakika)/gi, multiplier: 60 },
+      { regex: /(\d+)\s*(h|hour|hours|saat)/gi, multiplier: 3600 },
+      { regex: /(\d+)\s*(d|day|days|gün)/gi, multiplier: 86400 },
+      { regex: /(\d+)\s*(w|week|weeks|hafta)/gi, multiplier: 604800 },
+      { regex: /(\d+)\s*(s|sec|second|seconds|sn|saniye)/gi, multiplier: 1 }
+    ];
+    
+    for (const pattern of patterns) {
+      let match;
+      while ((match = pattern.regex.exec(text)) !== null) {
+        expressions.push({
+          original: match[0],
+          value: parseInt(match[1], 10) * pattern.multiplier,
+          unit: match[2]
+        });
+      }
+    }
+    
+    return expressions;
+  }
+  
+  /**
+   * Build system prompt for plan generation
+   * @returns {string} - System prompt
+   * @private
+   */
+ /**
+ * Build system prompt for plan generation - ENHANCED VERSION
+ * @returns {string} - System prompt
+ * @private
+ */
+_buildSystemPrompt() {
+  return `
+You are a Discord bot assistant that creates execution plans.
+You MUST ALWAYS generate VALID JSON with the EXACT FORMAT shown below.
+
+CRITICAL FORMATTING RULES:
+1. ALWAYS use double quotes for ALL strings and property names
+2. ALWAYS include commas between ALL array elements
+3. ALWAYS include commas between ALL object properties
+4. NEVER use single quotes anywhere
+5. NEVER include comments or text outside the JSON
+6. NEVER use markdown code blocks - output ONLY the raw JSON
+
+RESPONSE MUST FOLLOW THIS EXACT STRUCTURE:
+{
+  "steps": [
+    {
+      "tool": "discord.request",
+      "params": {
+        "action": "ACTION_NAME",
+        "PARAM1": "VALUE1",
+        "PARAM2": "VALUE2"
+      },
+      "id": "s1"
+    },
+    {
+      "tool": "discord.request",
+      "params": {
+        "action": "ACTION_NAME",
+        "PARAM1": "VALUE1"
+      },
+      "id": "s2"
+    }
+  ],
+  "meta": {"strategy": "sequential"}
+}
+
+MOST CRITICAL SYNTAX RULE:
+Between array elements ALWAYS include a comma, like this:
+CORRECT: [{"id":"s1"}, {"id":"s2"}]
+WRONG: [{"id":"s1"} {"id":"s2"}]
+
+Between object properties ALWAYS include a comma, like this:
+CORRECT: {"name":"value", "id":123}
+WRONG: {"name":"value" "id":123}
+
+If unsure about JSON validity, prefer simpler response with fewer steps.
+`;
+
+  }
+  /**
+   * Create an error plan
+   * @param {string} errorMessage - Error message
+   * @returns {Object} - Error plan
+   */
+  createErrorPlan(errorMessage) {
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `❌ ${errorMessage}`
+          },
+          id: "error1"
+        }
+      ],
+      meta: { 
+        strategy: "sequential",
+        isErrorPlan: true
+      },
+      requiresApproval: false
+    };
+  }
+
+  /**
+   * Create a simple success response plan
+   * @param {string} message - Success message
+   * @returns {Object} - Success plan
+   */
+  createSuccessPlan(message) {
+    return {
+      steps: [
+        {
+          tool: "discord.request",
+          params: {
+            action: "message.create",
+            content: `✅ ${message}`
+          },
+          id: "success1"
+        }
+      ],
+      meta: { strategy: "sequential" },
+      requiresApproval: false
+    };
+  }
+}
+
+module.exports = { PlanGenerator };
